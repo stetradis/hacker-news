@@ -1,3 +1,5 @@
+using HackerNews.Interfaces;
+using HackerNews.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -21,7 +23,8 @@ namespace HackerNews
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddSingleton<IStoryRepository, StoryRepository>();
+            services.AddMemoryCache();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
