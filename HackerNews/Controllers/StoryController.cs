@@ -25,12 +25,12 @@ namespace HackerNews.Controllers
             _repo = repo;
             _cache = cache;
         }
+
         // GET: api/<StoryController>
         [HttpGet]
-        public async Task<int[]> GetNewStoryIds()
+        public async Task<int[]> GetNewStoryIds(string storyType)
         {
             int[] ids = new int[] { };
-            string storyType = "new";
            
             var newStoryIds = await _repo.GetStoriesByType(storyType);
             if (newStoryIds.IsSuccessStatusCode)
@@ -41,11 +41,12 @@ namespace HackerNews.Controllers
             return ids;
         }
 
-        [HttpGet("stories")]  // GET /api/<StoryController>/story
-        public async Task<List<Story>> GetStories()
+        // GET /api/<StoryController>/story/new
+        [HttpGet("stories/{storyType}")]  
+        public async Task<List<Story>> GetStories(string storyType)
         {
             List<Story> stories = new List<Story>();
-            var ids = await GetNewStoryIds();
+            var ids = await GetNewStoryIds(storyType);
             
             foreach (int id in ids)
             {
@@ -54,8 +55,7 @@ namespace HackerNews.Controllers
                 {
                     stories.Add(storyResult);
                 }
-            }
-            
+            }          
             return stories;
         }
 
