@@ -45,43 +45,33 @@ namespace HackerNews.Controllers
         public async Task<List<Story>> GetStories()
         {
             List<Story> stories = new List<Story>();
-            var ids = (await GetNewStoryIds());
-
-            var storyResultList = await Task.WhenAll(ids.Select(GetStoriesById));
+            var ids = await GetNewStoryIds();
             
-            return storyResultList.ToList();
+            foreach (int id in ids)
+            {
+                var storyResult = GetStoriesById(id);
+                if (storyResult != null)
+                {
+                    stories.Add(storyResult);
+                }
+            }
+            
+            return stories;
         }
-
-
 
         // GET api/<StoryController>/5
         [HttpGet("{id}")]
-        public async Task<Story> GetStoriesById(int id)
+        public Story GetStoriesById(int id)
         {
-            return await _cache.GetOrCreateAsync<Story>(id,
-                async cacheEntry =>
-                {
-                    Story story = new Story();
-
-                    var cacheResponse = await _repo.GetStoryById(id);
-                    if (cacheResponse.IsSuccessStatusCode)
-                    {
-                        var result = cacheResponse.Content.ReadAsStringAsync().Result;
-                        story = JsonConvert.DeserializeObject<Story>(result);                  
-                    }
-
-                    if (story != null)
-                    {
-                        return story;
-                    }
-                    else
-                    {
-                        story = new Story();
-                        return story;
-                    }
-                    
-                });
+            //TODO: Implement cache
+            Story story = new Story();
+            var getResponse =  _repo.GetStoryById(id).Result;
+            if (getResponse.IsSuccessStatusCode)
+            {
+                var result = getResponse.Content.ReadAsStringAsync().Result;
+                story = JsonConvert.DeserializeObject<Story>(result);
+            }
+            return story;
         }
-
     }
 }
