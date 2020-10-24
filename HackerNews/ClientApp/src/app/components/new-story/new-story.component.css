@@ -1,0 +1,16 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: #ff6600;
+}
+
+a {
+  cursor: pointer;
+}
+
+td {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.container {
+  font-size: 1vw;
+}
