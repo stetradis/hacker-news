@@ -6,6 +6,10 @@ import { HttpClient } from '@angular/common/http';
 @Injectable()
 export class StoryService {
 
+  public textUrl = "https://news.ycombinator.com/item?id=";
+  public page = 1;
+  public pageSize = 10;
+
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
   getNewStories(): Observable<Story[]> {

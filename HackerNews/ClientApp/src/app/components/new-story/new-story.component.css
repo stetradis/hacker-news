@@ -10,3 +10,10 @@ td {
   white-space: normal;
   word-wrap: break-word;
 }
+
+.footer {
+  background-color: #ebebeb;
+  padding: 2px 0px 2px 0px;
+  text-align: left;
+  border: 1px solid #ddd;
+}

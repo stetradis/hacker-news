@@ -2,16 +2,24 @@
 
 <p *ngIf="!stories"><em>Loading...</em></p>
 
-<table class='table table-striped table-hover' *ngIf="stories">
-  <thead>
-  </thead>
-  <tbody>
-    <tr class="d-flex" *ngFor="let story of stories">
-      <ng-container *ngIf="story.title !== null">
-        <td class="col-6"><strong>{{ story.title }}</strong> <br /> {{ story.score }} points by {{ story.by }}</td>
-        <td class="col-6" *ngIf="story.url !== null"><a href="{{ story.url }}" class="text-dark">{{ story.url }}</a></td>
-        <td class="col-6" *ngIf="story.url === null"><a href="{{ textUrl + story.id }}" class="text-dark">{{ textUrl + story.id }}</a></td>
+<ng-container *ngIf="stories">
+  <div class="form-group">
+    <input type="text" class="form-control" name="search" [(ngModel)]="filter" placeholder="Search title.." autofocus />
+  </div>
+  <table class='table table-striped table-hover'>
+    <thead>
+    </thead>
+    <tbody>
+      <tr class="d-flex" *ngFor="let story of stories | filter: filter | paginate: { itemsPerPage: pageSize, currentPage: page }">
+        <ng-container *ngIf="story.title !== null">
+          <td class="col-6"><strong>{{ story.title }}</strong> <br /> {{ story.score }} points by {{ story.by }}</td>
+          <td class="col-6" *ngIf="story.url !== null"><a href="{{ story.url }}" class="text-dark">{{ story.url }}</a></td>
+          <td class="col-6" *ngIf="story.url === null"><a href="{{ textUrl + story.id }}" class="text-dark">{{ textUrl + story.id }}</a></td>
         </ng-container>
-    </tr>
-  </tbody>
-</table>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    <pagination-controls (pageChange)="handlePageChange($event)" responsive="true"></pagination-controls>
+  </div>
+  </ng-container>
