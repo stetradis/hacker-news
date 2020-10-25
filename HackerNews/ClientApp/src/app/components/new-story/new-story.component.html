@@ -6,7 +6,7 @@
   <thead>
   </thead>
   <tbody>
-    <tr class="d-flex" *ngFor="let story of stories">
+    <tr class="d-flex" *ngFor="let story of stories | paginate: { itemsPerPage: pageSize, currentPage: page }">
       <ng-container *ngIf="story.title !== null">
         <td class="col-6"><strong>{{ story.title }}</strong> <br /> {{ story.score }} points by {{ story.by }}</td>
         <td class="col-6" *ngIf="story.url !== null"><a href="{{ story.url }}" class="text-dark">{{ story.url }}</a></td>
@@ -15,3 +15,6 @@
     </tr>
   </tbody>
 </table>
+<div class="footer" *ngIf="stories">
+  <pagination-controls (pageChange)="handlePageChange($event)" responsive="true"></pagination-controls>
+</div>
