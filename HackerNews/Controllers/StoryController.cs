@@ -50,7 +50,7 @@ namespace HackerNews.Controllers
             
             foreach (int id in ids)
             {
-                var storyResult = GetStoriesById(id);
+                var storyResult = await GetStoriesById(id);
                 if (storyResult != null)
                 {
                     stories.Add(storyResult);
@@ -61,16 +61,22 @@ namespace HackerNews.Controllers
 
         // GET api/<StoryController>/5
         [HttpGet("{id}")]
-        public Story GetStoriesById(int id)
+        public async Task<Story> GetStoriesById(int id)
         {
-            //TODO: Implement cache
             Story story = new Story();
-            var getResponse =  _repo.GetStoryById(id).Result;
-            if (getResponse.IsSuccessStatusCode)
+          
+            if (!_cache.TryGetValue(id, out story))
             {
-                var result = getResponse.Content.ReadAsStringAsync().Result;
-                story = JsonConvert.DeserializeObject<Story>(result);
+                var getResponse = _repo.GetStoryById(id).Result;
+                if (getResponse.IsSuccessStatusCode)
+                {
+                    var responeResult = getResponse.Content.ReadAsStringAsync().Result;
+                    story = JsonConvert.DeserializeObject<Story>(responeResult);
+                }
+                
+                _cache.Set(id, story);
             }
+
             return story;
         }
     }
