@@ -13,6 +13,7 @@ export class NewStoryComponent implements OnInit {
   private page: number;
   private pageSize: number;
   private textUrl: string;
+  filter: string = "";
 
   constructor(private storyService: StoryService) {
     this.page = storyService.page;
