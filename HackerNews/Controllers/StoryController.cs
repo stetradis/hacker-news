@@ -48,14 +48,11 @@ namespace HackerNews.Controllers
             List<Story> stories = new List<Story>();
             var ids = await GetNewStoryIds(storyType);
             
-            foreach (int id in ids)
-            {
-                var storyResult = await GetStoriesById(id);
-                if (storyResult != null)
-                {
-                    stories.Add(storyResult);
-                }
-            }          
+            var resultList = ids.Select(this.GetStoriesById);           
+            var taskResult = await Task.WhenAll(resultList);
+
+            stories = taskResult.ToList();
+
             return stories;
         }
 
