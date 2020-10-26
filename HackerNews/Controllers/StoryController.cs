@@ -67,11 +67,11 @@ namespace HackerNews.Controllers
           
             if (!_cache.TryGetValue(id, out story))
             {
-                var getResponse = _repo.GetStoryById(id).Result;
+                var getResponse = await _repo.GetStoryById(id);
                 if (getResponse.IsSuccessStatusCode)
                 {
-                    var responeResult = getResponse.Content.ReadAsStringAsync().Result;
-                    story = JsonConvert.DeserializeObject<Story>(responeResult);
+                    var responseResult = getResponse.Content.ReadAsStringAsync().Result;
+                    story = JsonConvert.DeserializeObject<Story>(responseResult);
                 }
                 
                 _cache.Set(id, story);
