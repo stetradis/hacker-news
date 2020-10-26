@@ -4,6 +4,7 @@
 
 a:hover {
   cursor: pointer;
+  text-decoration: none;
 }
 
 td {
@@ -16,4 +17,14 @@ td {
   padding: 2px 0px 2px 0px;
   text-align: left;
   border: 1px solid #ddd;
+}
+
+a .title {
+  color: #333;
+  display: inline;
+}
+
+a .storylink {
+  color: #828282;
+  display: inline;
 }
