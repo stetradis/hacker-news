@@ -12,6 +12,7 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { HomeComponent } from './components/home/home.component';
 import { NewStoryComponent } from './components/new-story/new-story.component';
 import { TopStoryComponent } from './components/top-story/top-story.component';
+import { ShortDomainPipe } from './pipes/short-domain.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { TopStoryComponent } from './components/top-story/top-story.component';
     NavMenuComponent,
     HomeComponent,
     NewStoryComponent,
-    TopStoryComponent
+    TopStoryComponent,
+    ShortDomainPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

@@ -12,9 +12,17 @@
     <tbody>
       <tr class="d-flex" *ngFor="let story of stories | filter: filter | paginate: { itemsPerPage: pageSize, currentPage: page }">
         <ng-container *ngIf="story.title !== null">
-          <td class="col-6"><strong>{{ story.title }}</strong> <br /> {{ story.score }} points by {{ story.by }}</td>
-          <td class="col-6" *ngIf="story.url !== null"><a href="{{ story.url }}" class="text-dark">{{ story.url }}</a></td>
-          <td class="col-6" *ngIf="story.url === null"><a href="{{ textUrl + story.id }}" class="text-dark">{{ textUrl + story.id }}</a></td>
+          <td class="col-12">
+            <a class="storylink" href="{{ story.url ? story.url : textUrl + story.id }}">
+              <div class="title">
+                <strong>{{ story.title }}</strong>
+                <div class="storylink">
+                  ({{ (story.url ? story.url : textUrl + story.id) | shortDomain }})
+                </div>
+              </div>
+            </a>
+            <br/> {{ story.score }} points by {{ story.by }}
+          </td>
         </ng-container>
       </tr>
     </tbody>
