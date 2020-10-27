@@ -3,27 +3,27 @@ import { Story } from '../../models/Story';
 import { StoryService } from '../../services/story.service';
 
 @Component({
-  selector: 'app-new-story',
-  templateUrl: './new-story.component.html',
-  styleUrls: ['./new-story.component.css'],
+  selector: 'app-job',
+  templateUrl: './job.component.html',
+  styleUrls: ['./job.component.css']
 })
-export class NewStoryComponent implements OnInit {
+export class JobComponent implements OnInit {
 
-  public stories: Story[];
+  public jobs: Story[];
   private page: number;
-  private storyPageSize: number;
+  private jobPageSize: number;
   private textUrl: string;
   filter: string = "";
 
   constructor(private storyService: StoryService) {
     this.page = storyService.page;
-    this.storyPageSize = storyService.storyPageSize;
+    this.jobPageSize = storyService.jobPageSize;
     this.textUrl = storyService.textUrl;
   }
 
   ngOnInit() {
-    this.storyService.getNewStories().subscribe(result => {
-      this.stories = result;
+    this.storyService.getJobs().subscribe(result => {
+      this.jobs = result;
     }, error => console.error(error));
   }
 

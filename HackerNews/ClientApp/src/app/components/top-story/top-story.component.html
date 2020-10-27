@@ -10,7 +10,7 @@
     <thead>
     </thead>
     <tbody>
-      <tr class="d-flex" *ngFor="let story of stories | filter: filter | paginate: { itemsPerPage: pageSize, currentPage: page }">
+      <tr class="d-flex" *ngFor="let story of stories | filter: filter | paginate: { itemsPerPage: storyPageSize, currentPage: page }">
         <ng-container *ngIf="story.title !== null">
           <td class="col-12">
             <a class="storylink" href="{{ story.url ? story.url : textUrl + story.id }}">

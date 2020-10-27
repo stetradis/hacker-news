@@ -11,13 +11,13 @@ export class TopStoryComponent implements OnInit {
 
   public stories: Story[];
   private page: number;
-  private pageSize: number;
+  private storyPageSize: number;
   private textUrl: string;
   filter: string = "";
 
   constructor(private storyService: StoryService) {
     this.page = storyService.page;
-    this.pageSize = storyService.pageSize;
+    this.storyPageSize = storyService.storyPageSize;
     this.textUrl = storyService.textUrl;
   }
 
