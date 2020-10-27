@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { NewStoryComponent } from './components/new-story/new-story.component';
 import { TopStoryComponent } from './components/top-story/top-story.component';
 import { ShortDomainPipe } from './pipes/short-domain.pipe';
+import { JobComponent } from './components/job/job.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ShortDomainPipe } from './pipes/short-domain.pipe';
     HomeComponent,
     NewStoryComponent,
     TopStoryComponent,
-    ShortDomainPipe
+    ShortDomainPipe,
+    JobComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -33,6 +35,7 @@ import { ShortDomainPipe } from './pipes/short-domain.pipe';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'new-story', component: NewStoryComponent },
       { path: 'top-story', component: TopStoryComponent },
+      { path: 'job', component: JobComponent },
     ])
   ],
   providers: [StoryService],

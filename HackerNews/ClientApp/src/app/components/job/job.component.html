@@ -1,0 +1,32 @@
+<h1>Jobs</h1>
+
+<p *ngIf="!jobs"><em>Loading...</em></p>
+
+<ng-container *ngIf="jobs">
+  <div class="form-group">
+    <input type="text" class="form-control" name="search" [(ngModel)]="filter" placeholder="Search job title.." autofocus />
+  </div>
+  <table class='table table-striped table-hover'>
+    <thead>
+    </thead>
+    <tbody>
+      <tr class="d-flex" *ngFor="let job of jobs | filter: filter | paginate: { itemsPerPage: jobPageSize, currentPage: page }">
+        <ng-container *ngIf="job.title !== null">
+          <td class="col-12">
+            <a class="storylink" href="{{ job.url ? job.url : textUrl + job.id }}">
+              <div class="title">
+                <strong>{{ job.title }}</strong>
+                <div class="storylink">
+                  ({{ (job.url ? job.url : textUrl + job.id) | shortDomain }})
+                </div>
+              </div>
+            </a>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+  <div class="footer">
+    <pagination-controls (pageChange)="handlePageChange($event)" responsive="true"></pagination-controls>
+  </div>
+</ng-container>

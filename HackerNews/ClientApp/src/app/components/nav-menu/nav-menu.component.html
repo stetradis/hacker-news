@@ -27,6 +27,11 @@
                 <span class='glyphicon glyphicon-th-list'></span> New Stories
               </a>
             </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/job"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-briefcase'></span> Jobs
+              </a>
+            </li>
           </ul>
         </div>
     </div>

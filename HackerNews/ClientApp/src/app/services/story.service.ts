@@ -8,7 +8,8 @@ export class StoryService {
 
   public textUrl = "https://news.ycombinator.com/item?id=";
   public page = 1;
-  public pageSize = 10;
+  public storyPageSize = 10;
+  public jobPageSize = 15;
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string) { }
 
@@ -18,5 +19,9 @@ export class StoryService {
 
   getTopStories(): Observable<Story[]> {
     return this.http.get<Story[]>(this.baseUrl + 'api/Story/stories/top');
+  }
+
+  getJobs(): Observable<Story[]> {
+    return this.http.get<Story[]>(this.baseUrl + 'api/Story/stories/job');
   }
 }
